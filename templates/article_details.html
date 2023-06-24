@@ -1,0 +1,43 @@
+{%extends 'base.html' %}
+{%block title%} {{post.title_tag}}{%endblock%}
+{% block content %}
+
+{% comment %} current user:{{ user.id}}
+post author:{{post.author.id}} {% endcomment %}
+<h1>
+    {{post.title}}
+</h1>
+<small>By: {{post.author}}</small><br/>
+<small>Date: {{post.created_at}}
+
+    {%if user.is_authenticated%}
+        {% if user.id == post.author.id%}
+            <a href="{% url 'update_post' post.pk %}">Edit</a></small>
+            <small> <a href="{% url 'delete_post' post.pk %}">Delete</a>
+            <br/>
+        {% endif %}
+    {%endif%}
+
+<small></small><br/>
+<br>
+</br>
+{{post.body|safe}}
+<br>
+</br>
+<style>
+    .button{
+        background-color:#e7e7e7;
+        border:none
+        padding: 25px 32px;
+        text-align:center;
+        text-decoration:none;
+        display:inline-block;
+        front-size:16px;
+        margin:6px 2px;
+        cursor:pointer;
+    }
+</style>
+<button id="btn_link" class="button">
+<a href="{% url 'home' %}" style="text-decoration:none; color:#000000" > Back</a>
+</button>
+{% endblock  %}
